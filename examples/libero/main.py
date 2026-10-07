@@ -182,6 +182,12 @@ def eval_libero(args: Args) -> None:
         logging.info(f"Current task success rate: {float(task_successes) / float(task_episodes)}")
         logging.info(f"Current total success rate: {float(total_successes) / float(total_episodes)}")
 
+        # Explicitly close MuJoCo / EGL environment
+        try:
+            env.close()
+        except Exception as e:
+            logging.warning(f"Failed to close environment cleanly: {e}")
+
     logging.info(f"Total success rate: {float(total_successes) / float(total_episodes)}")
     logging.info(f"Total episodes: {total_episodes}")
 
